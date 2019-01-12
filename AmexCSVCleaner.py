@@ -1,15 +1,10 @@
 import sys
-filename = sys.argv[ 1 ]
 
-print( filename )
+def StripWhitespace( line ):
+    line = line.rstrip();
+    return line;
 
-file = open( filename, "r+" )
-
-result = "";
-
-lines = file.readlines()
-
-for line in lines:
+def RemoveExtraCommas( line ):
     length = len( line )
     previousChar = line[ 0 ]
     a = []
@@ -20,8 +15,9 @@ for line in lines:
     for indexToBeDeleted in a:
         line =  line[ :indexToBeDeleted ] + line [ ( indexToBeDeleted + 1 ): ]
 
-    line = line.rstrip()
+    return line
 
+def RemoveDayOfTheWeek( line ):
     lastIndex = len( line ) - 1
     if line[ lastIndex ] == ',':
         line = line[ :-1 ]
@@ -35,11 +31,35 @@ for line in lines:
     for x in range( 1, len( splits ) ):
         line = line + "," + splits[ x ]
 
-    result += line + "\n";
+    return line
+
+def GetRawTransactions():
+    file = open( sys.argv[ 1 ] , "r+" )
+    lines = file.readlines()
+    file.close()
+    return lines
+
+def GetTransactions():
+    result = "";
+
+    lines = GetRawTransactions()
+    for line in lines:
+        line = RemoveExtraCommas( line );
+        line = StripWhitespace( line )
+        line = RemoveDayOfTheWeek( line );
+
+        result += line + "\n";
+
+    return result
+
+def SaveTransactions( transactions ):
+    outputFile = open( "output.csv", "w" )
+    outputFile.write( result )
+    outputFile.close()
+
+
+result = GetTransactions();
 
 print( result )
 
-outputFile = open( "output.csv", "w" )
-outputFile.write( result )
-    
-file.close()
+SaveTransactions( result );
