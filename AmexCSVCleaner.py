@@ -21,6 +21,16 @@ for line in lines:
     if line[ lastIndex ] == ',':
         line = line[ :-1 ]
 
+    splits = line.split( "," )
+    date = splits[ 0 ]
+
+    dateSplits = date.split( " " )
+
+    line = dateSplits[ 0 ]
+    for x in range( 1, len( splits ) ):
+        line = line + ","
+        line = line + splits[ x ];
+
     print( line )
     
 file.close()
