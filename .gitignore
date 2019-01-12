@@ -117,3 +117,6 @@ dmypy.json
 AmexCSVCleaner.py~
 sample2.csv
 output.csv
+.idea/workspace.xml
+*.xml
+.idea/AmexGoodbudget.iml
