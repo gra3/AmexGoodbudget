@@ -1,12 +1,16 @@
 import sys
 
+def clean( filename ):
+   transactions = getTransactions( filename )
+   printTransactions( transactions )
+   saveTransactions( transactions )
 
-def StripWhitespace( line ):
+def stripWhitespace( line ):
     line = line.rstrip();
     return line;
 
 
-def RemoveExtraCommas( line ):
+def removeExtraCommas( line ):
     length = len( line )
     previousChar = line[ 0 ]
     a = []
@@ -20,7 +24,7 @@ def RemoveExtraCommas( line ):
     return line
 
 
-def RemoveDayOfTheWeek( line ):
+def removeDayOfTheWeek( line ):
     lastIndex = len( line ) - 1
     if line[ lastIndex ] == ',':
         line = line[ :-1 ]
@@ -37,28 +41,34 @@ def RemoveDayOfTheWeek( line ):
     return line
 
 
-def GetRawTransactions():
-    file = open( sys.argv[ 1 ] , "r+" )
+def getRawTransactions( filename ):
+    file = open( filename , "r" )
     lines = file.readlines()
     file.close()
     return lines
 
 
-def GetTransactions( ):
+def getTransactions( filename ):
     result = "";
 
-    lines = GetRawTransactions()
+    lines = getRawTransactions( filename )
     for line in lines:
-        line = RemoveExtraCommas( line );
-        line = StripWhitespace( line )
-        line = RemoveDayOfTheWeek( line );
+        line = removeExtraCommas( line );
+        line = stripWhitespace( line )
+        line = removeDayOfTheWeek( line );
 
         result += line + "\n";
 
     return result
 
 
-def SaveTransactions( transactions ):
+def printTransactions( transactions ):
+    print( transactions )
+
+
+def saveTransactions( transactions ):
     outputFile = open( "output.csv", "w" )
     outputFile.write( transactions )
     outputFile.close()
+
+clean( sys.argv[ 1 ] )
