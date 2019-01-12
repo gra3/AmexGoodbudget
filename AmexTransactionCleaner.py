@@ -1,16 +1,16 @@
 import sys
 
 def clean( filename ):
-   transactions = getTransactions( filename )
-   printTransactions( transactions )
+   transactions = get_transactions(filename)
+   print_transactions(transactions)
    saveTransactions( transactions )
 
-def stripWhitespace( line ):
+def strip_white_space(line):
     line = line.rstrip();
     return line;
 
 
-def removeExtraCommas( line ):
+def remove_extra_commas(line):
     length = len( line )
     previousChar = line[ 0 ]
     a = []
@@ -24,7 +24,7 @@ def removeExtraCommas( line ):
     return line
 
 
-def removeDayOfTheWeek( line ):
+def remove_day_of_the_week(line):
     lastIndex = len( line ) - 1
     if line[ lastIndex ] == ',':
         line = line[ :-1 ]
@@ -41,28 +41,28 @@ def removeDayOfTheWeek( line ):
     return line
 
 
-def getRawTransactions( filename ):
+def get_raw_transactions(filename):
     file = open( filename , "r" )
     lines = file.readlines()
     file.close()
     return lines
 
 
-def getTransactions( filename ):
+def get_transactions(filename):
     result = "";
 
-    lines = getRawTransactions( filename )
+    lines = get_raw_transactions(filename)
     for line in lines:
-        line = removeExtraCommas( line );
-        line = stripWhitespace( line )
-        line = removeDayOfTheWeek( line );
+        line = remove_extra_commas(line);
+        line = strip_white_space(line)
+        line = remove_day_of_the_week(line);
 
         result += line + "\n";
 
     return result
 
 
-def printTransactions( transactions ):
+def print_transactions(transactions):
     print( transactions )
 
 
