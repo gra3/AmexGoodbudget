@@ -115,3 +115,5 @@ dmypy.json
 .AmexCSVCleaner.py.un~
 .AmexCSVCleaner.py.swp
 AmexCSVCleaner.py~
+sample2.csv
+output.csv

@@ -1,6 +1,11 @@
-filename = "sample.csv"
+import sys
+filename = sys.argv[ 1 ]
+
+print( filename )
 
 file = open( filename, "r+" )
+
+result = "";
 
 lines = file.readlines()
 
@@ -28,9 +33,13 @@ for line in lines:
 
     line = dateSplits[ 0 ]
     for x in range( 1, len( splits ) ):
-        line = line + ","
-        line = line + splits[ x ];
+        line = line + "," + splits[ x ]
 
-    print( line )
+    result += line + "\n";
+
+print( result )
+
+outputFile = open( "output.csv", "w" )
+outputFile.write( result )
     
 file.close()
